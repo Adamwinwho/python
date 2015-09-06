@@ -1,4 +1,4 @@
-#第一个python程序，简单汉诺塔
+#first python file,creat a hanoi game
 
 def hanoi(n,a,b,c):
 	if n <= 0:
