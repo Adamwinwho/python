@@ -41,3 +41,64 @@ print(L2)
 
 #generator
 
+#Higher-order function高阶函数，即一个函数可以接受另一个函数作为参数，这种函数就成为高阶函数
+x = -5
+y = 6
+f = abs
+def add(x,y,f)
+    return f(x) + f(y)
+
+#map / reduce
+
+def f(x):
+    return x*x
+
+r = map(f,[1,2,3,4,5,6,7,8,9])
+
+list(map(str,[1,2,3,4,5,6,7,8,9]))
+
+#魔法方法学习
+#1、文件删除时自动关闭的方法
+class File:
+    def __init__(self,filename):
+        self.ofile = open(filename,'r+')
+    def __del__(self,filename):
+        self.ofile.close()
+        del self.ofile
+#温度转换
+class C2F(float):
+    "摄氏度转华氏度"
+    def __new__(cls,arg=0.0):
+        return float.__new__(cls,arg*1.8+32)
+
+#返回输入字符串的ASCII码的和
+class Nint(int):
+    def __new__(cls,arg=0):
+        if isinstance(arg,str):
+            total = 0
+            for each in arg:
+                total += ord(each)
+            arg = total
+        return int.__new__(cls,arg)
+#比较
+class Word(str):
+'''存储单词的类，定义比较单词的几种方法'''
+
+    def __new__(cls, word):
+        # 注意我们必须要用到 __new__ 方法，因为 str 是不可变类型
+        # 所以我们必须在创建的时候将它初始化
+        if ' ' in word:
+            print "Value contains spaces. Truncating to first space."
+            word = word[:word.index(' ')] #单词是第一个空格之前的所有字符
+        return str.__new__(cls, word)
+
+    def __gt__(self, other):
+        return len(self) > len(other)
+    def __lt__(self, other):
+        return len(self) < len(other)
+    def __ge__(self, other):
+        return len(self) >= len(other)
+    def __le__(self, other):
+        return len(self) <= len(other)
+
+        
